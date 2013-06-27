@@ -84,7 +84,7 @@ def main():
 	stopped = options.stopped
 	full = options.full
 	jump = int(options.jump)
-	arff = option.arff
+	arff = options.arff
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
