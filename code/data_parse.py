@@ -34,7 +34,7 @@ def calculateSparseDict(data_set, data_label, jump=1):
 	return docs
 
 def writeOneList(doc, label, fn):
-	fd = open(data_path + fn, 'a')
+	fd = open(fn, 'a')
 	fd.write(", ".join(doc) + ", " + label + "\n")
 	fd.close()
 
@@ -77,11 +77,14 @@ def main():
 	                  action="store_true", default=False, help="Generate a full dataset")
 	parser.add_option("-j", "--jump", dest="jump",
 	                  default=1, help="Jump given number of rows")
+	parser.add_option("-a", "--arff", dest="arff",
+	                  action="store_true", default=False, help="Create an arff file")
 	(options, args) = parser.parse_args()
 	ip_fn = options.ip_fn
 	stopped = options.stopped
 	full = options.full
 	jump = int(options.jump)
+	arff = option.arff
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -98,12 +101,19 @@ def main():
 
 	if full:
 		features_num = len(readFile(features))
-		header = ", ".join([ 'col'+str(i) for i in range(1, features_num + 1) ]) + ", label"
-		fd = open(data_path + ip_fn + ".full.csv", 'w')
+		if arff:
+			header = open(data_path + "header.arff").read()
+			file_name = data_path + ip_fn + ".full.arff"
+			fd = open(data_path + ip_fn + ".full.arff", 'w')
+		else:
+			header = ", ".join([ 'col'+str(i) for i in range(1, features_num + 1) ]) + ", label"
+			file_name = data_path + ip_fn + ".full.csv"
+
+		fd = open(file_name, 'w')
 		fd.write(header + "\n")
 		fd.close()
-		docs = calculateFullList(data_set, data_label_hash, features_num, ip_fn + ".full.csv", jump)
-		#writeList(docs, ip_fn + ".full")
+		docs = calculateFullList(data_set, data_label_hash, features_num, file_name, jump)
+			#writeList(docs, ip_fn + ".full")
 	else:
 		docs = calculateSparseDict(data_set, data_label_hash, jump)
 		writeHash(docs, ip_fn + ".sparse.csv")
