@@ -57,7 +57,10 @@ def calculateFullList(data_set, data_label, features_num, fn, jump=1):
 			# docs[data_set[i][0]][int(data_set[i][1])] = data_set[i][2]
 			# docs[data_set[i][0]][features_num] = data_label[int(data_set[i][0])]
 		else:
-			doc[int(data_set[i][1])] = data_set[i][2]
+			try:
+				doc[int(data_set[i][1])] = data_set[i][2]
+			except:
+				import pdb; pdb.set_trace()
 	writeOneList(doc, data_label[int(prev_id)], fn)
 
 def writeHash(docs_hash, fn):
