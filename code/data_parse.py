@@ -49,7 +49,7 @@ def calculateFullList(data_set, data_label, features_num, fn, jump=1):
 				writeOneList(doc, data_label[int(prev_id)],  fn)
 			prev_id = data_set[i][0]
 			doc = [ '0' for j in range(features_num) ]
-			doc[int(data_set[i][1])] = data_set[i][2]
+			doc[int(data_set[i][1]) - 1] = data_set[i][2]
 			# import pdb; pdb.set_trace()
 			# doc[features_num] = data_label[int(data_set[i][0])]
 			# tmp_lst = [ '0' for i in range(features_num + 1) ]
@@ -58,7 +58,7 @@ def calculateFullList(data_set, data_label, features_num, fn, jump=1):
 			# docs[data_set[i][0]][features_num] = data_label[int(data_set[i][0])]
 		else:
 			try:
-				doc[int(data_set[i][1])] = data_set[i][2]
+				doc[int(data_set[i][1]) - 1] = data_set[i][2]
 			except:
 				import pdb; pdb.set_trace()
 	writeOneList(doc, data_label[int(prev_id)], fn)
