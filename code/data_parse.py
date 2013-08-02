@@ -1,5 +1,9 @@
 import sys
 from optparse import OptionParser
+import cPickle
+from scipy.sparse import coo_matrix
+# cPickle.dump(myobj, open("myfile.pickle", "w"))
+# myobj2 = cPickle.load(open("myfile.pickle"))
 
 data_path = "../data/"
 
@@ -25,13 +29,28 @@ def indexedHasher(fn):
 def calculateSparseDict(data_set, data_label, jump=1):
 	docs = {}
 	for i in range(len(data_set)):
-		if data_set[i][0] not in docs:
-			if not data_set[i][0] % jump == 0:
-				continue
-			docs[data_set[i][0]] = { int(data_set[i][1]): data_set[i][2] , 'label': data_label[int(data_set[i][0])]}
-		else:
-			docs[data_set[i][0]][int(data_set[i][1])] = data_set[i][2]
+		try:
+			if int(data_set[i][0]) not in docs:
+				if not int(data_set[i][0]) % jump == 0:
+					continue
+				docs[int(data_set[i][0])] = { int(data_set[i][1]): int(data_set[i][2]), 'label': data_label[int(data_set[i][0])]}
+			else:
+				docs[int(data_set[i][0])][int(data_set[i][1])] = int(data_set[i][2])
+		except:
+			import pdb; pdb.set_trace()
 	return docs
+
+def calculateSparseDictCOO(data_set, jump=1):
+	row = []
+	col = []
+	data = []
+	for i in range(len(data_set)):
+		if not int(data_set[i][0]) % jump == 0:
+			continue
+		row.append(int(data_set[i][0]))
+		col.append(int(data_set[i][1])-1)
+		data.append(int(data_set[i][2]))
+	return row, col, data
 
 def writeOneList(doc, label, fn):
 	fd = open(fn, 'a')
@@ -78,10 +97,12 @@ def main():
 	                  action="store_true", default=False, help="Use stop words.")
 	parser.add_option("-u", "--full", dest="full",
 	                  action="store_true", default=False, help="Generate a full dataset.")
-	parser.add_option("-nh", "--noheader", 
+	parser.add_option("-n", "--noheader",
 					  action="store_true", default=False, help="Do not place header in output.")
 	parser.add_option("-j", "--jump", dest="jump",
 	                  default=1, help="Jump given number of rows.")
+	parser.add_option("-c", "--coo", dest="coo",
+					  action="store_true", default=False, help="Save in scipy spare and pickle")
 	parser.add_option("-a", "--arff", dest="arff",
 	                  action="store_true", default=False, help="Create an arff file.")
 	(options, args) = parser.parse_args()
@@ -91,6 +112,7 @@ def main():
 	jump = int(options.jump)
 	arff = options.arff
 	noheader = options.noheader
+	coo = options.coo
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -121,6 +143,12 @@ def main():
 		fd.close()
 		docs = calculateFullList(data_set, data_label_hash, features_num, file_name, jump)
 			#writeList(docs, ip_fn + ".full")
+	elif coo:
+		features_num = len(readFile(features))
+		row, col, data = calculateSparseDictCOO(data_set, jump)
+		coo = coo_matrix((data,(row,col)), shape=(max(row)+1, features_num+1))
+		cPickle.dump(coo, open(data_path + ip_fn + ".sparse.pkl", "w"))
+		cPickle.dump(data_label_hash, open(data_path + "data_label_hash.pkl", "w"))
 	else:
 		docs = calculateSparseDict(data_set, data_label_hash, jump)
 		writeHash(docs, ip_fn + ".sparse.csv")
