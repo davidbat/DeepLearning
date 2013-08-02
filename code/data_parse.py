@@ -75,19 +75,22 @@ def main():
 	parser.add_option("-f", "--file", dest="ip_fn",
 	                  help="select the FILE [train/test]", metavar="FILE")
 	parser.add_option("-s", "--stop", dest="stopped",
-	                  action="store_true", default=False, help="Use stop words")
+	                  action="store_true", default=False, help="Use stop words.")
 	parser.add_option("-u", "--full", dest="full",
-	                  action="store_true", default=False, help="Generate a full dataset")
+	                  action="store_true", default=False, help="Generate a full dataset.")
+	parser.add_option("-nh", "--noheader", 
+					  action="store_true", default=False, help="Do not place header in output.")
 	parser.add_option("-j", "--jump", dest="jump",
-	                  default=1, help="Jump given number of rows")
+	                  default=1, help="Jump given number of rows.")
 	parser.add_option("-a", "--arff", dest="arff",
-	                  action="store_true", default=False, help="Create an arff file")
+	                  action="store_true", default=False, help="Create an arff file.")
 	(options, args) = parser.parse_args()
 	ip_fn = options.ip_fn
 	stopped = options.stopped
 	full = options.full
 	jump = int(options.jump)
 	arff = options.arff
+	noheader = options.noheader
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -113,7 +116,8 @@ def main():
 			file_name = data_path + ip_fn + ".full.csv"
 
 		fd = open(file_name, 'w')
-		fd.write(header + "\n")
+		if not noheader:
+			fd.write(header + "\n")
 		fd.close()
 		docs = calculateFullList(data_set, data_label_hash, features_num, file_name, jump)
 			#writeList(docs, ip_fn + ".full")
