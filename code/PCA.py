@@ -5,6 +5,8 @@ from scipy.sparse import coo_matrix
 from scipy import sparse
 from bisect import bisect_left
 
+data_path = "../data/"
+
 class lil2(sparse.lil_matrix):
     def removecol(self,j):
         if j < 0:
@@ -47,9 +49,9 @@ pca = RandomizedPCA(n_components=8000)
 pca.fit(train)
 
 
-new_train = pca.transform(train)
-new_test = pca.transform(test)
+train = pca.transform(train)
+test = pca.transform(test)
 
-cPickle.dump(new_test, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
-cPickle.dump(new_train, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
+cPickle.dump(test, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
+cPickle.dump(train, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
 
