@@ -37,7 +37,8 @@ def calculateSparseDict(data_set, data_label, jump=1):
 			else:
 				docs[int(data_set[i][0])][int(data_set[i][1])] = int(data_set[i][2])
 		except:
-			import pdb; pdb.set_trace()
+			print "Exception"
+			sys.exit(1)
 	return docs
 
 def calculateSparseDictCOO(data_set, jump=1):
@@ -82,11 +83,15 @@ def calculateFullList(data_set, data_label, features_num, fn, jump=1):
 				import pdb; pdb.set_trace()
 	writeOneList(doc, data_label[int(prev_id)], fn)
 
-def writeHash(docs_hash, fn):
+def writeHash(docs_hash, fn, qid=False):
 	fd = open(data_path + fn, 'w')
+	query = []
+	if qid:
+		query = ["qid:0"]
 	for docid in docs_hash:
-		tmp_lst = map(lambda k:str(k)+":"+str(docs_hash[docid][k]), sorted(docs_hash[docid].keys()))[:-1] + [str(docs_hash[docid]['label'])]
-		fd.write(", ".join(tmp_lst) + "\n")
+		# Ingore the label from the keys and add it manually
+		tmp_lst = [str(docs_hash[docid]['label'])] + query + map(lambda k:str(k)+":"+str(docs_hash[docid][k]), sorted(docs_hash[docid].keys()))[:-1]
+		fd.write(" ".join(tmp_lst) + "\n")
 	fd.close()
 
 def main():
@@ -105,6 +110,8 @@ def main():
 					  action="store_true", default=False, help="Save in scipy spare and pickle")
 	parser.add_option("-a", "--arff", dest="arff",
 	                  action="store_true", default=False, help="Create an arff file.")
+	parser.add_option("-g", "--gforest", dest="gmode",
+					  action="store_true", default=False, help="Split the train into a 10%  validation set. Add a query id to the sparse matrix form. (For gforest).")
 	(options, args) = parser.parse_args()
 	ip_fn = options.ip_fn
 	stopped = options.stopped
@@ -113,6 +120,7 @@ def main():
 	arff = options.arff
 	noheader = options.noheader
 	coo = options.coo
+	gmode = options.gmode
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -151,7 +159,17 @@ def main():
 		cPickle.dump(data_label_hash, open(data_path + "data_label_hash.pkl", "w"))
 	else:
 		docs = calculateSparseDict(data_set, data_label_hash, jump)
-		writeHash(docs, ip_fn + ".sparse.csv")
+		if gmode and ip_fn == "train":
+			validation_perc = 10
+			valid_set = filter(lambda k: k % validation_perc == 0, docs.keys())
+			train_set = set(docs.keys()) - set(valid_set)
+			valid_data = dict((k,v) for k,v in docs.items() if k in valid_set)
+			train_data = dict((k,v) for k,v in docs.items() if k in train_set)
+			writeHash(valid_data, "validation.gforest.sparse.dat", qid=gmode)
+			writeHash(train_data, "train.gforest.sparse.dat", qid=gmode)
+		else:
+			name = ip_fn + ".gforest.sparse.dat" if gmode else ".sparse.csv"
+			writeHash(docs, name, qid=gmode)
 
 
 
