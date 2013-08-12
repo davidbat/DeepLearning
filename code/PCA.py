@@ -36,8 +36,9 @@ test = open("../data/test.sparse.pkl")
 train = open("../data/train.sparse.pkl")
 
 
-test = cPickle.load(open("../data/test.sparse.pkl"))
-train = cPickle.load(open("../data/train.sparse.pkl"))
+test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
+train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
+valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
 
@@ -51,7 +52,9 @@ pca.fit(train)
 
 train = pca.transform(train)
 test = pca.transform(test)
+valid = pca.transform(valid)
 
-cPickle.dump(test, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
-cPickle.dump(train, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
+cPickle.dump((test, test_labels), open(data_path + "test" + ".PCA.sparse.pkl", "w"))
+cPickle.dump((train, train_labels), open(data_path + "train" + ".PCA.sparse.pkl", "w"))
+cPickle.dump((valid, valid_labels), open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
 

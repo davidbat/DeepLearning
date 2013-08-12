@@ -2,6 +2,7 @@ import sys
 from optparse import OptionParser
 import cPickle
 from scipy.sparse import coo_matrix
+import numpy as np
 # cPickle.dump(myobj, open("myfile.pickle", "w"))
 # myobj2 = cPickle.load(open("myfile.pickle"))
 
@@ -13,6 +14,7 @@ testing_set = "test"
 
 stop_ids = "stop_word_ids.txt"
 features = "vocabulary.txt"
+validation_perc = 10
 
 
 def readFile(fn):
@@ -41,17 +43,39 @@ def calculateSparseDict(data_set, data_label, jump=1):
 			sys.exit(1)
 	return docs
 
-def calculateSparseDictCOO(data_set, jump=1):
+def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 	row = []
 	col = []
 	data = []
+	labels = []
+	row_valid = []
+	col_valid = []
+	data_valid = []
+	labels_valid = []
+
+	doc_ids = set(sorted(map(lambda row:int(row[0]), data_set)))
+	base_ids = set(filter(lambda ids: ids % jump == 0, doc_ids))
+	train_ids = base_ids
+	valid_ids = set()
+	if valid_flag:
+		valid_ids = set(filter(lambda ids: ids % validation_perc == 0, base_ids))
+		train_ids = base_ids - valid_ids
 	for i in range(len(data_set)):
-		if not int(data_set[i][0]) % jump == 0:
-			continue
-		row.append(int(data_set[i][0]))
-		col.append(int(data_set[i][1])-1)
-		data.append(int(data_set[i][2]))
-	return row, col, data
+		if int(data_set[i][0]) in train_ids:
+			row.append(int(data_set[i][0]))
+			col.append(int(data_set[i][1])-1)
+			data.append(int(data_set[i][2]))
+			labels.append(int(data_label_hash[int(data_set[i][0])]))
+		elif int(data_set[i][0]) in valid_ids:
+			row_valid.append(int(data_set[i][0]))
+			col_valid.append(int(data_set[i][1])-1)
+			data_valid.append(int(data_set[i][2]))
+			labels_valid.append(int(data_label_hash[int(data_set[i][0])]))
+
+
+	train = row, col, data, labels
+	valid = row_valid, col_valid, data_valid, labels_valid
+	return train, valid
 
 def writeOneList(doc, label, fn):
 	fd = open(fn, 'a')
@@ -110,6 +134,8 @@ def main():
 					  action="store_true", default=False, help="Save in scipy spare and pickle")
 	parser.add_option("-a", "--arff", dest="arff",
 	                  action="store_true", default=False, help="Create an arff file.")
+	parser.add_option("-v", "--valid", dest="valid",
+					  action="store_true", default=False, help="Create a validation set. Only works when input file is train and coo mode on.")
 	parser.add_option("-g", "--gforest", dest="gmode",
 					  action="store_true", default=False, help="Split the train into a 10%  validation set. Add a query id to the sparse matrix form. (For gforest).")
 	(options, args) = parser.parse_args()
@@ -121,6 +147,7 @@ def main():
 	noheader = options.noheader
 	coo = options.coo
 	gmode = options.gmode
+	valid = options.valid
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -153,14 +180,18 @@ def main():
 			#writeList(docs, ip_fn + ".full")
 	elif coo:
 		features_num = len(readFile(features))
-		row, col, data = calculateSparseDictCOO(data_set, jump)
+		train, validation = calculateSparseDictCOO(data_set, data_label_hash, jump, valid)
+		if valid and ip_fn == "train":
+			row, col, data, labels = validation
+			coo = coo_matrix((data,(row,col)), shape=(max(row)+1, features_num+1))
+			cPickle.dump((coo, np.array(labels)), open(data_path  + "validation.sparse.pkl", "w"))
+
+		row, col, data, labels = train
 		coo = coo_matrix((data,(row,col)), shape=(max(row)+1, features_num+1))
-		cPickle.dump(coo, open(data_path + ip_fn + ".sparse.pkl", "w"))
-		cPickle.dump(data_label_hash, open(data_path + "data_label_hash.pkl", "w"))
+		cPickle.dump((coo, np.array(labels)), open(data_path + ip_fn + ".sparse.pkl", "w"))
 	else:
 		docs = calculateSparseDict(data_set, data_label_hash, jump)
 		if gmode and ip_fn == "train":
-			validation_perc = 10
 			valid_set = filter(lambda k: k % validation_perc == 0, docs.keys())
 			train_set = set(docs.keys()) - set(valid_set)
 			valid_data = dict((k,v) for k,v in docs.items() if k in valid_set)
