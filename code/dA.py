@@ -73,7 +73,7 @@ class dA(object):
     """
 
     def __init__(self, numpy_rng, theano_rng=None, input=None,
-                 n_visible=784, n_hidden=500,
+                 n_visible=2000, n_hidden=500,
                  W=None, bhid=None, bvis=None):
         """
         Initialize the dA class by specifying the number of visible units (the
@@ -237,7 +237,7 @@ class dA(object):
 
 
 def test_dA(learning_rate=0.1, training_epochs=15,
-            dataset='../data/mnist.pkl.gz',
+            dataset='../data/PCA.sparse.pkl.gz',
             batch_size=20, output_folder='dA_plots'):
 
     """
@@ -275,7 +275,7 @@ def test_dA(learning_rate=0.1, training_epochs=15,
     theano_rng = RandomStreams(rng.randint(2 ** 30))
 
     da = dA(numpy_rng=rng, theano_rng=theano_rng, input=x,
-            n_visible=28 * 28, n_hidden=500)
+            n_visible=2000, n_hidden=500)
 
     cost, updates = da.get_cost_updates(corruption_level=0.,
                                         learning_rate=learning_rate)
@@ -306,11 +306,11 @@ def test_dA(learning_rate=0.1, training_epochs=15,
     print >> sys.stderr, ('The no corruption code for file ' +
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((training_time) / 60.))
-    image = PIL.Image.fromarray(
-        tile_raster_images(X=da.W.get_value(borrow=True).T,
-                           img_shape=(28, 28), tile_shape=(10, 10),
-                           tile_spacing=(1, 1)))
-    image.save('filters_corruption_0.png')
+    # image = PIL.Image.fromarray(
+    #     tile_raster_images(X=da.W.get_value(borrow=True).T,
+    #                        img_shape=(28, 28), tile_shape=(10, 10),
+    #                        tile_spacing=(1, 1)))
+    # image.save('filters_corruption_0.png')
 
     #####################################
     # BUILDING THE MODEL CORRUPTION 30% #
@@ -320,7 +320,7 @@ def test_dA(learning_rate=0.1, training_epochs=15,
     theano_rng = RandomStreams(rng.randint(2 ** 30))
 
     da = dA(numpy_rng=rng, theano_rng=theano_rng, input=x,
-            n_visible=28 * 28, n_hidden=500)
+            n_visible=2000, n_hidden=500)
 
     cost, updates = da.get_cost_updates(corruption_level=0.3,
                                         learning_rate=learning_rate)
@@ -352,11 +352,11 @@ def test_dA(learning_rate=0.1, training_epochs=15,
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % (training_time / 60.))
 
-    image = PIL.Image.fromarray(tile_raster_images(
-        X=da.W.get_value(borrow=True).T,
-        img_shape=(28, 28), tile_shape=(10, 10),
-        tile_spacing=(1, 1)))
-    image.save('filters_corruption_30.png')
+    # image = PIL.Image.fromarray(tile_raster_images(
+    #     X=da.W.get_value(borrow=True).T,
+    #     img_shape=(28, 28), tile_shape=(10, 10),
+    #     tile_spacing=(1, 1)))
+    # image.save('filters_corruption_30.png')
 
     os.chdir('../')
 

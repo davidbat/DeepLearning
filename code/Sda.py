@@ -57,7 +57,7 @@ class SdA(object):
     the dAs are only used to initialize the weights.
     """
 
-    def __init__(self, numpy_rng, theano_rng=None, n_ins=784,
+    def __init__(self, numpy_rng, theano_rng=None, n_ins=2000,
                  hidden_layers_sizes=[500, 500], n_outs=10,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
@@ -295,7 +295,7 @@ class SdA(object):
 
 def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
              pretrain_lr=0.001, training_epochs=1000,
-             dataset='../data/mnist.pkl.gz', batch_size=1):
+             dataset='../data/PCA.sparse.pkl.gz', batch_size=1):
     """
     Demonstrates how to train and test a stochastic denoising autoencoder.
 
@@ -333,7 +333,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     numpy_rng = numpy.random.RandomState(89677)
     print '... building the model'
     # construct the stacked denoising autoencoder class
-    sda = SdA(numpy_rng=numpy_rng, n_ins=28 * 28,
+    sda = SdA(numpy_rng=numpy_rng, n_ins=2000,
               hidden_layers_sizes=[1000, 1000, 1000],
               n_outs=10)
 

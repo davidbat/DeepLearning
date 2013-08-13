@@ -42,7 +42,7 @@ valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
 
-pca = RandomizedPCA(n_components=8000)
+pca = RandomizedPCA(n_components=2000)
 
 # lil_train = train.tolil()
 # train_new = lil2(lil_train)
@@ -54,7 +54,14 @@ train = pca.transform(train)
 test = pca.transform(test)
 valid = pca.transform(valid)
 
-cPickle.dump((test, test_labels), open(data_path + "test" + ".PCA.sparse.pkl", "w"))
-cPickle.dump((train, train_labels), open(data_path + "train" + ".PCA.sparse.pkl", "w"))
-cPickle.dump((valid, valid_labels), open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
+set1 = (test, test_labels)
+set2 = (valid, valid_labels)
+set3 = (train, train_labels)
 
+try:
+    cPickle.dump(set1, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
+    cPickle.dump(set2, open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
+    cPickle.dump(set3, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
+    cPickle.dump((set1, set2, set3), open(data_path + "PCA.sparse.pkl", "w"))
+except:
+    import pdb; pdb.set_trace()
