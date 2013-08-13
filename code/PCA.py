@@ -3,6 +3,7 @@ import cPickle
 from scipy.sparse import coo_matrix
 
 from scipy import sparse
+import gzip
 from bisect import bisect_left
 
 data_path = "../data/"
@@ -62,6 +63,6 @@ try:
     cPickle.dump(set1, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
     cPickle.dump(set2, open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
     cPickle.dump(set3, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
-    cPickle.dump((set1, set2, set3), open(data_path + "PCA.sparse.pkl", "w"))
+    cPickle.dump((set3, set2, set1), gzip.open(data_path + "PCA.sparse.pkl", "wb"))
 except:
     import pdb; pdb.set_trace()
