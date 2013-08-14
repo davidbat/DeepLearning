@@ -33,10 +33,6 @@ class lil2(sparse.lil_matrix):
         self._shape = (self._shape[0],self._shape[1]-1)
 
 
-test = open("../data/test.sparse.pkl")
-train = open("../data/train.sparse.pkl")
-
-
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
 train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
 valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
