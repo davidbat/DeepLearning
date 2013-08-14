@@ -43,6 +43,18 @@ def calculateSparseDict(data_set, data_label, jump=1):
 			sys.exit(1)
 	return docs
 
+def translate(data):
+	"""input must be a sorted list of positive integers"""
+	"""make the given array a continous set of numbers
+	   ex - translate([1,1,1,33,33,55,55]) -> [1,1,1,2,2,3,3] """
+	hsh = {j: data.count(j) for j in set(data)}
+   	cnt = 0
+   	out = []
+   	for k in sorted(hsh.keys()):
+   		cnt += 1
+   		out += [cnt for i in range(hsh[k])]
+   	return out
+
 def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 	row = []
 	col = []
@@ -73,8 +85,8 @@ def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 			labels_valid.append(int(data_label_hash[int(data_set[i][0])]))
 
 
-	train = row, col, data, labels
-	valid = row_valid, col_valid, data_valid, labels_valid
+	train = translate(row), col, data, labels
+	valid = translate(row_valid), col_valid, data_valid, labels_valid
 	return train, valid
 
 def writeOneList(doc, label, fn):
