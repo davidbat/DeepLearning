@@ -44,10 +44,8 @@ pca = RandomizedPCA(n_components=2000)
 # lil_train = train.tolil()
 # train_new = lil2(lil_train)
 
-pca.fit(train)
 
-
-train = pca.transform(train)
+train = pca.fit_transform(train)
 test = pca.transform(test)
 valid = pca.transform(valid)
 
