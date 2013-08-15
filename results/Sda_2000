@@ -1,0 +1,64 @@
+The pretraining code for file Sda.py ran for 316.65m
+The training code for file Sda.py ran for 101.76m
+... building the model
+... getting the pretraining functions
+... pre-training the model
+Pre-training layer 0, epoch 0, cost  -35267.7541081
+Pre-training layer 0, epoch 1, cost  -104078.332717
+Pre-training layer 0, epoch 2, cost  -172996.884843
+Pre-training layer 0, epoch 3, cost  -243199.785347
+Pre-training layer 0, epoch 4, cost  -312373.382558
+Pre-training layer 0, epoch 5, cost  -380797.456212
+Pre-training layer 0, epoch 6, cost  -450217.325193
+Pre-training layer 0, epoch 7, cost  -521091.149391
+Pre-training layer 0, epoch 8, cost  -587629.098641
+Pre-training layer 0, epoch 9, cost  -660755.320488
+Pre-training layer 0, epoch 10, cost  -732814.506632
+Pre-training layer 0, epoch 11, cost  -798127.831277
+Pre-training layer 0, epoch 12, cost  -863341.797557
+Pre-training layer 0, epoch 13, cost  -934907.703964
+Pre-training layer 0, epoch 14, cost  -1010906.62144
+Pre-training layer 1, epoch 0, cost  4.98202960713
+Pre-training layer 1, epoch 1, cost  3.94056476376
+Pre-training layer 1, epoch 2, cost  3.7654208409
+Pre-training layer 1, epoch 3, cost  3.61167319982
+Pre-training layer 1, epoch 4, cost  3.44740860671
+Pre-training layer 1, epoch 5, cost  3.32164148642
+Pre-training layer 1, epoch 6, cost  3.15304208876
+Pre-training layer 1, epoch 7, cost  3.06205841867
+Pre-training layer 1, epoch 8, cost  2.96439248815
+Pre-training layer 1, epoch 9, cost  2.85641770859
+Pre-training layer 1, epoch 10, cost  2.78636446545
+Pre-training layer 1, epoch 11, cost  2.73638748986
+Pre-training layer 1, epoch 12, cost  2.68481052698
+Pre-training layer 1, epoch 13, cost  2.65217827644
+Pre-training layer 1, epoch 14, cost  2.58819187407
+Pre-training layer 2, epoch 0, cost  2.88584903546
+Pre-training layer 2, epoch 1, cost  1.49022630201
+Pre-training layer 2, epoch 2, cost  1.30253392416
+Pre-training layer 2, epoch 3, cost  1.17968733431
+Pre-training layer 2, epoch 4, cost  1.09471983147
+Pre-training layer 2, epoch 5, cost  1.0299319429
+Pre-training layer 2, epoch 6, cost  0.993740723139
+Pre-training layer 2, epoch 7, cost  0.958110200392
+Pre-training layer 2, epoch 8, cost  0.937868480046
+Pre-training layer 2, epoch 9, cost  0.923282371058
+Pre-training layer 2, epoch 10, cost  0.913387144273
+Pre-training layer 2, epoch 11, cost  0.937969399345
+Pre-training layer 2, epoch 12, cost  0.889277485665
+Pre-training layer 2, epoch 13, cost  0.907058517029
+Pre-training layer 2, epoch 14, cost  0.877397469932
+... getting the finetuning functions
+... finetunning the model
+epoch 1, minibatch 10144/10144, validation error 0.000000 %
+     epoch 1, minibatch 10144/10144, test error of best model 0.000000 %
+epoch 2, minibatch 10144/10144, validation error 0.000000 %
+epoch 3, minibatch 10144/10144, validation error 0.000000 %
+epoch 4, minibatch 10144/10144, validation error 0.000000 %
+epoch 5, minibatch 10144/10144, validation error 0.000000 %
+epoch 6, minibatch 10144/10144, validation error 0.000000 %
+epoch 7, minibatch 10144/10144, validation error 0.000000 %
+epoch 8, minibatch 10144/10144, validation error 0.000000 %
+epoch 9, minibatch 10144/10144, validation error 0.000000 %
+epoch 10, minibatch 10144/10144, validation error 0.000000 %
+Optimization complete with best validation score of 0.000000 %,with test performance 0.000000 %
