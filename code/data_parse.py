@@ -44,26 +44,35 @@ def calculateSparseDict(data_set, data_label, jump=1):
 	return docs
 
 def translate(data):
+	########  REALLY SLOW CODE!!!! OPTIMIZE!!!  ########
 	"""input must be a sorted list of positive integers"""
 	"""make the given array a continous set of numbers
 	   ex - translate([1,1,1,33,33,55,55]) -> [1,1,1,2,2,3,3] """
+	out = []
+	# lens = [data.count(k) for k in sorted(set(data))]
+	# nested = map(lambda indx:[indx for i in range(lens[indx-1])],range(1, len(lens)+1))
+	# return [item for sublist in nested for item in sublist]
 	hsh = {j: data.count(j) for j in set(data)}
-   	cnt = 0
-   	out = []
-   	for k in sorted(hsh.keys()):
-   		cnt += 1
-   		out += [cnt for i in range(hsh[k])]
-   	return out
+	cnt = 0
+	for k in sorted(hsh.keys()):
+		out += [cnt for i in range(hsh[k])]
+		cnt += 1
+	# ctr = 0
+	# prev = data[0]
+	# for point in data:
+	# 	if point != prev:
+	# 		prev = point
+	# 		ctr += 1
+	# 	out.append(ctr)
+	return out
 
 def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 	row = []
 	col = []
 	data = []
-	labels = []
 	row_valid = []
 	col_valid = []
 	data_valid = []
-	labels_valid = []
 
 	doc_ids = set(sorted(map(lambda row:int(row[0]), data_set)))
 	base_ids = set(filter(lambda ids: ids % jump == 0, doc_ids))
@@ -71,19 +80,22 @@ def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 	valid_ids = set()
 	if valid_flag:
 		valid_ids = set(filter(lambda ids: ids % validation_perc == 0, base_ids))
-		train_ids = base_ids - valid_ids
+		train_ids = sorted(base_ids - valid_ids)
+		valid_ids = sorted(valid_ids)
+
+	labels = map(lambda trid: int(data_label_hash[trid]), train_ids)
+	labels_valid = map(lambda vlid: int(data_label_hash[vlid]), valid_ids)
 	for i in range(len(data_set)):
 		if int(data_set[i][0]) in train_ids:
 			row.append(int(data_set[i][0]))
 			col.append(int(data_set[i][1])-1)
 			data.append(int(data_set[i][2]))
-			labels.append(int(data_label_hash[int(data_set[i][0])]))
+			# labels.append(int(data_label_hash[int(data_set[i][0])]))
 		elif int(data_set[i][0]) in valid_ids:
 			row_valid.append(int(data_set[i][0]))
 			col_valid.append(int(data_set[i][1])-1)
 			data_valid.append(int(data_set[i][2]))
-			labels_valid.append(int(data_label_hash[int(data_set[i][0])]))
-
+			# labels_valid.append(int(data_label_hash[int(data_set[i][0])]))
 
 	train = translate(row), col, data, labels
 	valid = translate(row_valid), col_valid, data_valid, labels_valid
@@ -116,6 +128,7 @@ def calculateFullList(data_set, data_label, features_num, fn, jump=1):
 			try:
 				doc[int(data_set[i][1]) - 1] = data_set[i][2]
 			except:
+				print "An error has occured and we have entered debug mode."
 				import pdb; pdb.set_trace()
 	writeOneList(doc, data_label[int(prev_id)], fn)
 

@@ -58,7 +58,7 @@ class SdA(object):
     """
 
     def __init__(self, numpy_rng, theano_rng=None, n_ins=2000,
-                 hidden_layers_sizes=[500, 500], n_outs=10,
+                 hidden_layers_sizes=[500, 500], n_outs=20,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
 
@@ -335,7 +335,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     # construct the stacked denoising autoencoder class
     sda = SdA(numpy_rng=numpy_rng, n_ins=2000,
               hidden_layers_sizes=[1000, 1000, 1000],
-              n_outs=10)
+              n_outs=20)
 
     #########################
     # PRETRAINING THE MODEL #
