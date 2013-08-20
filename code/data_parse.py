@@ -75,13 +75,14 @@ def calculateSparseDictCOO(data_set, data_label_hash, jump=1, valid_flag=False):
 	data_valid = []
 
 	doc_ids = set(sorted(map(lambda row:int(row[0]), data_set)))
-	base_ids = set(filter(lambda ids: ids % jump == 0, doc_ids))
-	train_ids = base_ids
+	base_ids_list = filter(lambda ids: ids % jump == 0, doc_ids)
+	train_ids = base_ids_list
 	valid_ids = set()
 	if valid_flag:
-		valid_ids = set(filter(lambda ids: ids % validation_perc == 0, base_ids))
-		train_ids = sorted(base_ids - valid_ids)
-		valid_ids = sorted(valid_ids)
+		valid_index = filter(lambda ids: ids % validation_perc == 0, range(len(base_ids_list)))
+		valid_ids = [base_ids_list[i] for i in valid_index]
+		base_ids = set(base_ids_list)
+		train_ids = sorted(base_ids - set(valid_ids))
 
 	labels = map(lambda trid: int(data_label_hash[trid]), train_ids)
 	labels_valid = map(lambda vlid: int(data_label_hash[vlid]), valid_ids)
@@ -172,7 +173,7 @@ def main():
 	noheader = options.noheader
 	coo = options.coo
 	gmode = options.gmode
-	valid = options.valid
+	valid = options.valid and ip_fn == "train"
 	if jump < 1:
 		raise "Invalid jump value provided"
 	if ip_fn not in [ training_set, testing_set ]:
@@ -206,7 +207,7 @@ def main():
 	elif coo:
 		features_num = len(readFile(features))
 		train, validation = calculateSparseDictCOO(data_set, data_label_hash, jump, valid)
-		if valid and ip_fn == "train":
+		if valid:
 			row, col, data, labels = validation
 			coo = coo_matrix((data,(row,col)), shape=(max(row)+1, features_num+1))
 			cPickle.dump((coo, np.array(labels)), open(data_path  + "validation.sparse.pkl", "w"))
