@@ -15,8 +15,7 @@ valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
 
-import pdb; pdb.set_trace()
-pca = RandomizedPCA(n_components=2000)
+pca = RandomizedPCA(n_components=250)
 
 train_red = pca.fit_transform(train)
 valid_red = pca.transform(valid)
