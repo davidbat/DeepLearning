@@ -8,6 +8,12 @@ from bisect import bisect_left
 
 data_path = "../data/"
 
+def jumper(lst, jump=1):
+	out = []
+	for i in range(len(lst)):
+		if i % jump == 0:
+			out.append(lst)	
+	return out
 
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
 train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
@@ -15,15 +21,18 @@ valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
 
-pca = RandomizedPCA(n_components=250)
+pca = RandomizedPCA(n_components=784)
 
 train_red = pca.fit_transform(train)
 valid_red = pca.transform(valid)
 test_red = pca.transform(test)
 
-set1 = (test_red, test_labels)
-set2 = (valid_red, valid_labels)
-set3 = (train_red, train_labels)
+jump = 15
+
+set1 = (jumper(test_red, jump), jumper(test_labels, jump))
+set2 = (jumper(valid_red, jump), jumper(valid_labels, jump))
+set3 = (jumper(train_red, jump), jumper(train_labels, jump))
+
 
 try:
     cPickle.dump(set1, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
