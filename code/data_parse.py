@@ -48,6 +48,8 @@ def translate(data):
 	"""input must be a sorted list of positive integers"""
 	"""make the given array a continous set of numbers
 	   ex - translate([1,1,1,33,33,55,55]) -> [1,1,1,2,2,3,3] """
+	# Make the data into a set. Then make a hashmap and then use the map function to pull out the 
+	# new value from the hashmap
 	out = []
 	# lens = [data.count(k) for k in sorted(set(data))]
 	# nested = map(lambda indx:[indx for i in range(lens[indx-1])],range(1, len(lens)+1))
