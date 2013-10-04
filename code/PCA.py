@@ -15,11 +15,18 @@ def jumper(lst, jump=1):
 			out.append(lst[i])
 	return out
 
+def dec_labels_by_one(lst):
+	return map(lambda r:r-1, lst)
+
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
 train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
 valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
+
+test_labels = dec_labels_by_one(test_labels)
+train_labels = dec_labels_by_one(train_labels)
+valid_labels = dec_labels_by_one(valid_labels)
 
 pca = RandomizedPCA(n_components=1013)
 
