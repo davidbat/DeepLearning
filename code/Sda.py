@@ -57,7 +57,7 @@ class SdA(object):
     the dAs are only used to initialize the weights.
     """
 
-    def __init__(self, numpy_rng, theano_rng=None, n_ins=2000,
+    def __init__(self, numpy_rng, theano_rng=None, n_ins=1013,
                  hidden_layers_sizes=[500, 500], n_outs=20,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
@@ -333,8 +333,8 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     numpy_rng = numpy.random.RandomState(89677)
     print '... building the model'
     # construct the stacked denoising autoencoder class
-    sda = SdA(numpy_rng=numpy_rng, n_ins=2000,
-              hidden_layers_sizes=[1000, 1000, 1000],
+    sda = SdA(numpy_rng=numpy_rng, n_ins=1013,
+              hidden_layers_sizes=[1013, 500],
               n_outs=20)
 
     #########################
@@ -354,9 +354,12 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
             # go through the training set
             c = []
             for batch_index in xrange(n_train_batches):
+              try:
                 c.append(pretraining_fns[i](index=batch_index,
-                         corruption=corruption_levels[i],
-                         lr=pretrain_lr))
+                           corruption=corruption_levels[i],
+                           lr=pretrain_lr))
+              except:
+                import pdb; pdb.set_trace()
             print 'Pre-training layer %i, epoch %d, cost ' % (i, epoch),
             print numpy.mean(c)
 
@@ -400,7 +403,10 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
     while (epoch < training_epochs) and (not done_looping):
         epoch = epoch + 1
         for minibatch_index in xrange(n_train_batches):
-            minibatch_avg_cost = train_fn(minibatch_index)
+            try:
+              minibatch_avg_cost = train_fn(minibatch_index)
+            except:
+              import pdb; pdb.set_trace()
             iter = (epoch - 1) * n_train_batches + minibatch_index
 
             if (iter + 1) % validation_frequency == 0:
