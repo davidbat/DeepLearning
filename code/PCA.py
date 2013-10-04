@@ -12,7 +12,7 @@ def jumper(lst, jump=1):
 	out = []
 	for i in range(len(lst)):
 		if i % jump == 0:
-			out.append(lst)	
+			out.append(lst[i])
 	return out
 
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
@@ -21,13 +21,13 @@ valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
 
 num_features = train.shape[1]
 
-pca = RandomizedPCA(n_components=784)
+pca = RandomizedPCA(n_components=1013)
 
 train_red = pca.fit_transform(train)
 valid_red = pca.transform(valid)
 test_red = pca.transform(test)
 
-jump = 15
+jump = 10
 
 set1 = (jumper(test_red, jump), jumper(test_labels, jump))
 set2 = (jumper(valid_red, jump), jumper(valid_labels, jump))
