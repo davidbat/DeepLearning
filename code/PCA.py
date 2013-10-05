@@ -19,7 +19,7 @@ def dec_labels_by_one(lst):
 	return map(lambda r:r-1, lst)
 
 def find_min(lst):
-	return min(map(lambda m: min(m), lst))
+	return abs(min(map(lambda m: min(m), lst)))
 
 def add_min(lst, global_min):
 	return map(lambda row: map(lambda itm: itm+global_min, row), lst)
