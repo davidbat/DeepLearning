@@ -1,4 +1,4 @@
-from sklearn.decomposition import RandomizedPCA, ProbabilisticPCA
+from sklearn.decomposition import RandomizedPCA, ProbabilisticPCA, NMF
 import cPickle
 from scipy.sparse import coo_matrix
 
@@ -42,7 +42,7 @@ test_labels = dec_labels_by_one(test_labels)
 train_labels = dec_labels_by_one(train_labels)
 valid_labels = dec_labels_by_one(valid_labels)
 
-pca = ProbabilisticPCA(n_components=1013)
+pca = NMF(n_components=1013)
 
 train_red = pca.fit_transform(train)
 valid_red = pca.transform(valid)
@@ -52,15 +52,15 @@ train_red = jumper(train_red, jump)
 valid_red = jumper(valid_red, jump)
 test_red = jumper(test_red, jump)
 
-mins = []
-mins.append(find_min(train_red))
-mins.append(find_min(test_red))
-mins.append(find_min(valid_red))
+# mins = []
+# mins.append(find_min(train_red))
+# mins.append(find_min(test_red))
+# mins.append(find_min(valid_red))
 
-global_min = min(mins)
-train_red = add_min(train_red, global_min)
-test_red = add_min(test_red, global_min)
-valid_red = add_min(valid_red, global_min)
+# global_min = min(mins)
+# train_red = add_min(train_red, global_min)
+# test_red = add_min(test_red, global_min)
+# valid_red = add_min(valid_red, global_min)
 
 
 set1 = (train_red, jumper(train_labels, jump))
