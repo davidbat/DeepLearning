@@ -5,6 +5,7 @@ from scipy.sparse import coo_matrix
 from scipy import sparse
 import gzip
 from bisect import bisect_left
+import numpy as np
 
 data_path = "../data/"
 
@@ -23,6 +24,26 @@ def find_min(lst):
 
 def add_min(lst, global_min):
 	return map(lambda row: map(lambda itm: itm+global_min, row), lst)
+
+def get_min_max(arr):
+	trp = np.transpose(arr)
+	tmp = []
+	for col in trp:
+		mn = min(col)
+		mx = max(col) - mn
+		tmp.append((mn, mx))
+	return tmp
+
+def apply_min_max(arr, min_max):
+	trp = np.transpose(arr)
+	tmp = []
+	col_idx = 0
+	for col in trp:
+		mn = min_max[col_idx][0]
+		mx = min_max[col_idx][1]
+		tmp.append(map(lambda c:(c-mn)/mx, col))
+		col_idx += 1
+	return tmp
 
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
 train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
@@ -51,6 +72,12 @@ test_red = pca.transform(test)
 train_red = jumper(train_red, jump)
 valid_red = jumper(valid_red, jump)
 test_red = jumper(test_red, jump)
+
+full_arr = np.concatenate((train_red, valid_red, test_red), axis=0)
+min_max = get_min_max(full_arr)
+train_red = apply_min_max(train_red, min_max)
+valid_red = apply_min_max(valid_red, min_max)
+test_red = apply_min_max(test_red, min_max)
 
 # mins = []
 # mins.append(find_min(train_red))
