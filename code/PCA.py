@@ -45,6 +45,8 @@ def apply_min_max(arr, min_max):
 		col_idx += 1
 	return tmp
 
+
+print "extracting data...\n"
 test, test_labels = cPickle.load(open("../data/test.sparse.pkl"))
 train, train_labels = cPickle.load(open("../data/train.sparse.pkl"))
 valid, valid_labels = cPickle.load(open("../data/validation.sparse.pkl"))
@@ -58,13 +60,14 @@ train = train.toarray()
 test = test.toarray()
 valid = valid.toarray()
 
-
+print "decreasing label value by 1...\n"
 test_labels = dec_labels_by_one(test_labels)
 train_labels = dec_labels_by_one(train_labels)
 valid_labels = dec_labels_by_one(valid_labels)
 
 pca = NMF(n_components=1013)
 
+print "running the transform...\n"
 train_red = pca.fit_transform(train)
 valid_red = pca.transform(valid)
 test_red = pca.transform(test)
@@ -73,8 +76,11 @@ train_red = jumper(train_red, jump)
 valid_red = jumper(valid_red, jump)
 test_red = jumper(test_red, jump)
 
+print "ceating full array...\n"
 full_arr = np.concatenate((train_red, valid_red, test_red), axis=0)
+print "get min_max...\n"
 min_max = get_min_max(full_arr)
+print "apply min_max...\n"
 train_red = apply_min_max(train_red, min_max)
 valid_red = apply_min_max(valid_red, min_max)
 test_red = apply_min_max(test_red, min_max)
@@ -89,16 +95,18 @@ test_red = apply_min_max(test_red, min_max)
 # test_red = add_min(test_red, global_min)
 # valid_red = add_min(valid_red, global_min)
 
-
+print "creating sets...\n"
 set1 = (train_red, jumper(train_labels, jump))
 set2 = (valid_red, jumper(valid_labels, jump))
 set3 = (test_red, jumper(test_labels, jump))
 
 
 try:
+    print "pickling the data...\n"
     cPickle.dump(set1, open(data_path + "train" + ".PCA.sparse.pkl", "w"))
     cPickle.dump(set2, open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
     cPickle.dump(set3, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
     cPickle.dump((set1, set2, set3), gzip.open(data_path + "PCA.sparse.pkl.gz", "wb"))
 except:
-    import pdb; pdb.set_trace()
+    print "error while pickling...\n"
+    #import pdb; pdb.set_trace()
