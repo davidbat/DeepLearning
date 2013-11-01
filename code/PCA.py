@@ -10,9 +10,9 @@ import logging
 data_path = "../data/"
 
 FORMAT = '%(asctime)-15s: %(message)s'
-logging.basicConfig(format=FORMAT)
+logging.basicConfig(format=FORMAT, filename='../results/PCA.log', level=logging.DEBUG)
 logger = logging.getLogger()
-logger.setLevel(logging.getLevelName('INFO'))
+#logger.setLevel(logging.getLevelName('INFO'))
 #logger.warning('Protocol problem: %s', 'connection reset', extra=d)
 
 def jumper(lst, jump=1):
@@ -71,7 +71,7 @@ test_labels = dec_labels_by_one(test_labels)
 train_labels = dec_labels_by_one(train_labels)
 valid_labels = dec_labels_by_one(valid_labels)
 
-pca = NMF(n_components=1013)
+pca = RandomizedPCA(n_components=1013)
 
 logger.info("running the transform...\n")
 train_red = pca.fit_transform(train)
@@ -116,3 +116,5 @@ try:
 except:
     logger.info("error while pickling...\n")
     #import pdb; pdb.set_trace()
+
+logger.info("done...\n")
