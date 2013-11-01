@@ -49,7 +49,7 @@ def apply_min_max(arr, min_max):
 		mx = min_max[col_idx][1]
 		tmp.append(map(lambda c:(c-mn)/mx, col))
 		col_idx += 1
-	return tmp
+	return np.transpose(tmp)
 
 
 logger.info("extracting data...\n")

@@ -358,7 +358,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
                 c.append(pretraining_fns[i](index=batch_index,
                            corruption=corruption_levels[i],
                            lr=pretrain_lr))
-              except:
+              except Exception as e:
                 import pdb; pdb.set_trace()
             print 'Pre-training layer %i, epoch %d, cost ' % (i, epoch),
             print numpy.mean(c)
@@ -405,7 +405,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
         for minibatch_index in xrange(n_train_batches):
             try:
               minibatch_avg_cost = train_fn(minibatch_index)
-            except:
+            except Exception as f:
               import pdb; pdb.set_trace()
             iter = (epoch - 1) * n_train_batches + minibatch_index
 
