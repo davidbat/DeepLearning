@@ -46,7 +46,7 @@ from mlp import HiddenLayer
 from dA import dA
 import logging
 
-logging.basicConfig(filename='../data/Sda.log',level=logging.DEBUG)
+logging.basicConfig(filename='../results/Sda.log', level=logging.DEBUG, format = '%(asctime)-15s %(message)s')
 
 class SdA(object):
     """Stacked denoising auto-encoder class (SdA)
@@ -333,7 +333,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
 
     # numpy random generator
     numpy_rng = numpy.random.RandomState(89677)
-    logging('... building the model')
+    logging.info('... building the model')
     # construct the stacked denoising autoencoder class
     sda = SdA(numpy_rng=numpy_rng, n_ins=61189,
               hidden_layers_sizes=[25000, 10000],
@@ -342,11 +342,11 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
     #########################
     # PRETRAINING THE MODEL #
     #########################
-    logging('... getting the pretraining functions')
+    logging.info('... getting the pretraining functions')
     pretraining_fns = sda.pretraining_functions(train_set_x=train_set_x,
                                                 batch_size=batch_size)
 
-    logging('... pre-training the model')
+    logging.info('... pre-training the model')
     start_time = time.clock()
     ## Pre-train layer-wise
     corruption_levels = [.1, .2, .3]
@@ -362,12 +362,12 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                            lr=pretrain_lr))
               except Exception as e:
                 import pdb; pdb.set_trace()
-            logging('Pre-training layer %i, epoch %d, cost ' % (i, epoch))
-            logging(numpy.mean(c))
+            logging.info('Pre-training layer %i, epoch %d, cost ' % (i, epoch))
+            logging.info(numpy.mean(c))
 
     end_time = time.clock()
 
-    logging('The pretraining code for file ' +
+    logging.info('The pretraining code for file ' +
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((end_time - start_time) / 60.))
 
@@ -376,12 +376,12 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
     ########################
 
     # get the training, validation and testing function for the model
-    logging('... getting the finetuning functions')
+    logging.info('... getting the finetuning functions')
     train_fn, validate_model, test_model = sda.build_finetune_functions(
                 datasets=datasets, batch_size=batch_size,
                 learning_rate=finetune_lr)
 
-    logging('... finetunning the model')
+    logging.info('... finetunning the model')
     # early-stopping parameters
     patience = 10 * n_train_batches  # look as this many examples regardless
     patience_increase = 2.  # wait this much longer when a new best is
@@ -414,7 +414,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
             if (iter + 1) % validation_frequency == 0:
                 validation_losses = validate_model()
                 this_validation_loss = numpy.mean(validation_losses)
-                logging('epoch %i, minibatch %i/%i, validation error %f %%' %
+                logging.info('epoch %i, minibatch %i/%i, validation error %f %%' %
                       (epoch, minibatch_index + 1, n_train_batches,
                        this_validation_loss * 100.))
 
@@ -433,7 +433,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                     # test it on the test set
                     test_losses = test_model()
                     test_score = numpy.mean(test_losses)
-                    logging(('     epoch %i, minibatch %i/%i, test error of '
+                    logging.info(('     epoch %i, minibatch %i/%i, test error of '
                            'best model %f %%') %
                           (epoch, minibatch_index + 1, n_train_batches,
                            test_score * 100.))
@@ -443,13 +443,14 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                 break
 
     end_time = time.clock()
-    logging(('Optimization complete with best validation score of %f %%,'
+    logging.info(('Optimization complete with best validation score of %f %%,'
            'with test performance %f %%') %
                  (best_validation_loss * 100., test_score * 100.))
-    logging('The training code for file ' +
+    logging.info('The training code for file ' +
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((end_time - start_time) / 60.))
 
 
 if __name__ == '__main__':
+    logging.info("Starting Sda")
     test_SdA()
