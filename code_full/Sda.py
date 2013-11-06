@@ -44,7 +44,9 @@ from theano.tensor.shared_randomstreams import RandomStreams
 from logistic_sgd import LogisticRegression, load_data
 from mlp import HiddenLayer
 from dA import dA
+import logging
 
+logging.basicConfig(filename='../data/Sda.log',level=logging.DEBUG)
 
 class SdA(object):
     """Stacked denoising auto-encoder class (SdA)
@@ -57,7 +59,7 @@ class SdA(object):
     the dAs are only used to initialize the weights.
     """
 
-    def __init__(self, numpy_rng, theano_rng=None, n_ins=1013,
+    def __init__(self, numpy_rng, theano_rng=None, n_ins=61189,
                  hidden_layers_sizes=[500, 500], n_outs=20,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
@@ -295,7 +297,7 @@ class SdA(object):
 
 def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
              pretrain_lr=0.001, training_epochs=5000,
-             dataset='../data/PCA.sparse.pkl.gz', batch_size=1):
+             dataset='../data/Full.pkl.gz', batch_size=1):
     """
     Demonstrates how to train and test a stochastic denoising autoencoder.
 
@@ -331,20 +333,20 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
 
     # numpy random generator
     numpy_rng = numpy.random.RandomState(89677)
-    print '... building the model'
+    logging('... building the model')
     # construct the stacked denoising autoencoder class
-    sda = SdA(numpy_rng=numpy_rng, n_ins=1013,
-              hidden_layers_sizes=[1013, 500, 250, 100],
+    sda = SdA(numpy_rng=numpy_rng, n_ins=61189,
+              hidden_layers_sizes=[25000, 10000],
               n_outs=20)
 
     #########################
     # PRETRAINING THE MODEL #
     #########################
-    print '... getting the pretraining functions'
+    logging('... getting the pretraining functions')
     pretraining_fns = sda.pretraining_functions(train_set_x=train_set_x,
                                                 batch_size=batch_size)
 
-    print '... pre-training the model'
+    logging('... pre-training the model')
     start_time = time.clock()
     ## Pre-train layer-wise
     corruption_levels = [.1, .2, .3]
@@ -360,12 +362,12 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                            lr=pretrain_lr))
               except Exception as e:
                 import pdb; pdb.set_trace()
-            print 'Pre-training layer %i, epoch %d, cost ' % (i, epoch),
-            print numpy.mean(c)
+            logging('Pre-training layer %i, epoch %d, cost ' % (i, epoch))
+            logging(numpy.mean(c))
 
     end_time = time.clock()
 
-    print >> sys.stderr, ('The pretraining code for file ' +
+    logging('The pretraining code for file ' +
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((end_time - start_time) / 60.))
 
@@ -374,12 +376,12 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
     ########################
 
     # get the training, validation and testing function for the model
-    print '... getting the finetuning functions'
+    logging('... getting the finetuning functions')
     train_fn, validate_model, test_model = sda.build_finetune_functions(
                 datasets=datasets, batch_size=batch_size,
                 learning_rate=finetune_lr)
 
-    print '... finetunning the model'
+    logging('... finetunning the model')
     # early-stopping parameters
     patience = 10 * n_train_batches  # look as this many examples regardless
     patience_increase = 2.  # wait this much longer when a new best is
@@ -412,7 +414,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
             if (iter + 1) % validation_frequency == 0:
                 validation_losses = validate_model()
                 this_validation_loss = numpy.mean(validation_losses)
-                print('epoch %i, minibatch %i/%i, validation error %f %%' %
+                logging('epoch %i, minibatch %i/%i, validation error %f %%' %
                       (epoch, minibatch_index + 1, n_train_batches,
                        this_validation_loss * 100.))
 
@@ -431,7 +433,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                     # test it on the test set
                     test_losses = test_model()
                     test_score = numpy.mean(test_losses)
-                    print(('     epoch %i, minibatch %i/%i, test error of '
+                    logging(('     epoch %i, minibatch %i/%i, test error of '
                            'best model %f %%') %
                           (epoch, minibatch_index + 1, n_train_batches,
                            test_score * 100.))
@@ -441,10 +443,10 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                 break
 
     end_time = time.clock()
-    print(('Optimization complete with best validation score of %f %%,'
+    logging(('Optimization complete with best validation score of %f %%,'
            'with test performance %f %%') %
                  (best_validation_loss * 100., test_score * 100.))
-    print >> sys.stderr, ('The training code for file ' +
+    logging('The training code for file ' +
                           os.path.split(__file__)[1] +
                           ' ran for %.2fm' % ((end_time - start_time) / 60.))
 
