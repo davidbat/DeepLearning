@@ -47,6 +47,8 @@ def apply_min_max(arr, min_max):
 	for col in trp:
 		mn = min_max[col_idx][0]
 		mx = min_max[col_idx][1]
+		if mx == 0:
+			mx = 1
 		tmp.append(map(lambda c:(c-mn)/mx, col))
 		col_idx += 1
 	return np.transpose(tmp)
