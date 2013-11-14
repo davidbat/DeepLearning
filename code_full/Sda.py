@@ -60,7 +60,7 @@ class SdA(object):
     """
 
     def __init__(self, numpy_rng, theano_rng=None, n_ins=61189,
-                 hidden_layers_sizes=[500, 500], n_outs=20,
+                 hidden_layers_sizes=[25000, 10000], n_outs=20,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
 
@@ -295,8 +295,8 @@ class SdA(object):
         return train_fn, valid_score, test_score
 
 
-def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
-             pretrain_lr=0.001, training_epochs=5000,
+def test_SdA(finetune_lr=0.1, pretraining_epochs=05,
+             pretrain_lr=0.001, training_epochs=15,
              dataset='../data/Full.pkl.gz', batch_size=1):
     """
     Demonstrates how to train and test a stochastic denoising autoencoder.
@@ -361,7 +361,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
                            corruption=corruption_levels[i],
                            lr=pretrain_lr))
               except Exception as e:
-                import pdb; pdb.set_trace()
+                 logging.error("Error in pre-training %s" % e.message)
             logging.info('Pre-training layer %i, epoch %d, cost ' % (i, epoch))
             logging.info(numpy.mean(c))
 
@@ -453,4 +453,10 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=1000,
 
 if __name__ == '__main__':
     logging.info("Starting Sda")
-    test_SdA()
+    try:
+       test_SdA()
+    except Exception as e:
+       logging.info("Error while running the Sda")
+       logging.info(e.message)
+    logging.info("Successfully run Sda")
+    
