@@ -69,9 +69,9 @@ def main():
 	test_idx = jumper(test_idx, jump)
 
 	logger.info("Getting the labels.")
-	train_labels = map(lambda i: mat['gnd'][i[0]-1][0], train_idx)
-	valid_labels = map(lambda i: mat['gnd'][i[0]-1][0], valid_idx)
-	test_labels = map(lambda i: mat['gnd'][i[0]-1][0], test_idx)
+	train_labels = map(lambda i: mat['gnd'][i-1][0], train_idx)
+	valid_labels = map(lambda i: mat['gnd'][i-1][0], valid_idx)
+	test_labels = map(lambda i: mat['gnd'][i-1][0], test_idx)
 
 	logger.info("Getting the data.")
 	train = map(lambda i: data[i[0]-1], train_idx)
@@ -90,4 +90,7 @@ def main():
 
 
 if __name__ == "__main__":
-	main()
+	try:
+		main()
+	except Exception as e:
+		logger.exception(e)
