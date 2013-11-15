@@ -74,9 +74,9 @@ def main():
 	test_labels = map(lambda i: mat['gnd'][i-1][0], test_idx)
 
 	logger.info("Getting the data.")
-	train = map(lambda i: data[i[0]-1], train_idx)
-	valid = map(lambda i: data[i[0]-1], valid_idx)
-	test = map(lambda i: data[i[0]-1], test_idx)
+	train = map(lambda i: data[i-1], train_idx)
+	valid = map(lambda i: data[i-1], valid_idx)
+	test = map(lambda i: data[i-1], test_idx)
 
 	set1 = (train, train_labels)
 	set2 = (valid, valid_labels)
