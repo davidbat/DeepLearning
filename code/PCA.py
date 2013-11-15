@@ -115,8 +115,8 @@ try:
     cPickle.dump(set2, open(data_path + "validation" + ".PCA.sparse.pkl", "w"))
     cPickle.dump(set3, open(data_path + "test" + ".PCA.sparse.pkl", "w"))
     cPickle.dump((set1, set2, set3), gzip.open(data_path + "PCA.sparse.pkl.gz", "wb"))
-except:
-    logger.info("error while pickling...\n")
+except Exception as e:
+    logger.exception(e)
     #import pdb; pdb.set_trace()
 
 logger.info("done...\n")

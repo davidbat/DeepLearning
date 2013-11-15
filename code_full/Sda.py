@@ -457,6 +457,6 @@ if __name__ == '__main__':
        test_SdA()
     except Exception as e:
        logging.info("Error while running the Sda")
-       logging.info(e.message)
+       logging.exception(e)
     logging.info("Successfully run Sda")
     
