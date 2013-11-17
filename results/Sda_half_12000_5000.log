@@ -1,0 +1,247 @@
+2013-11-14 19:41:39,647 Starting Sda
+2013-11-14 19:41:52,110 ... building the model
+2013-11-14 19:41:59,660 ... getting the pretraining functions
+2013-11-14 19:42:07,797 ... pre-training the model
+2013-11-14 20:20:00,824 Pre-training layer 0, epoch 0, cost 
+2013-11-14 20:20:00,825 180.801553982
+2013-11-14 20:57:57,013 Pre-training layer 0, epoch 1, cost 
+2013-11-14 20:57:57,014 114.818504943
+2013-11-14 21:35:55,011 Pre-training layer 0, epoch 2, cost 
+2013-11-14 21:35:55,012 112.802782807
+2013-11-15 01:46:49,951 Starting Sda
+2013-11-15 01:53:08,692 Starting Sda
+2013-11-15 01:53:21,291 ... building the model
+2013-11-15 01:53:28,874 ... getting the pretraining functions
+2013-11-15 01:53:33,308 ... pre-training the model
+2013-11-15 02:15:33,744 Starting Sda
+2013-11-15 02:15:46,211 ... building the model
+2013-11-15 02:15:53,695 ... getting the pretraining functions
+2013-11-15 02:15:57,562 ... pre-training the model
+2013-11-15 02:53:53,580 Pre-training layer 0, epoch 0, cost 
+2013-11-15 02:53:53,581 180.801553982
+2013-11-15 03:31:52,884 Pre-training layer 0, epoch 1, cost 
+2013-11-15 03:31:52,885 114.818504943
+2013-11-15 04:09:46,404 Pre-training layer 0, epoch 2, cost 
+2013-11-15 04:09:46,405 112.802782807
+2013-11-15 04:47:39,186 Pre-training layer 0, epoch 3, cost 
+2013-11-15 04:47:39,187 111.746845782
+2013-11-15 05:25:34,061 Pre-training layer 0, epoch 4, cost 
+2013-11-15 05:25:34,063 110.590886062
+2013-11-15 05:39:04,285 Pre-training layer 1, epoch 0, cost 
+2013-11-15 05:39:04,287 8381.9948466
+2013-11-15 05:52:32,912 Pre-training layer 1, epoch 1, cost 
+2013-11-15 05:52:32,914 8355.59938301
+2013-11-15 06:06:03,130 Pre-training layer 1, epoch 2, cost 
+2013-11-15 06:06:03,131 8350.26967505
+2013-11-15 06:19:31,612 Pre-training layer 1, epoch 3, cost 
+2013-11-15 06:19:31,613 8345.71110169
+2013-11-15 06:33:00,401 Pre-training layer 1, epoch 4, cost 
+2013-11-15 06:33:00,402 8342.00931284
+2013-11-15 06:33:00,402 The pretraining code for file Sda.py ran for 922.38m
+2013-11-15 06:33:00,402 ... getting the finetuning functions
+2013-11-15 06:33:03,229 ... finetunning the model
+2013-11-15 12:03:05,659 Error while running the Sda
+2013-11-15 12:03:05,659 
+Traceback (most recent call last):
+  File "Sda.py", line 457, in <module>
+    test_SdA()
+  File "Sda.py", line 412, in test_SdA
+    iter = (epoch - 1) * n_train_batches + minibatch_index
+  File "Sda.py", line 412, in test_SdA
+    iter = (epoch - 1) * n_train_batches + minibatch_index
+  File "/usr/lib64/python2.7/bdb.py", line 48, in trace_dispatch
+    return self.dispatch_line(frame)
+  File "/usr/lib64/python2.7/bdb.py", line 67, in dispatch_line
+    if self.quitting: raise BdbQuit
+BdbQuit
+2013-11-15 12:03:05,660 Successfully run Sda
+2013-11-15 12:11:06,177 Starting Sda
+2013-11-15 12:18:49,787 Starting Sda
+2013-11-15 12:19:02,515 ... building the model
+2013-11-15 12:19:10,041 ... getting the pretraining functions
+2013-11-15 12:19:14,002 ... pre-training the model
+2013-11-15 12:57:07,742 Pre-training layer 0, epoch 0, cost 
+2013-11-15 12:57:07,743 180.801553982
+2013-11-15 13:35:03,964 Pre-training layer 0, epoch 1, cost 
+2013-11-15 13:35:03,965 114.818504943
+2013-11-15 14:12:56,247 Pre-training layer 0, epoch 2, cost 
+2013-11-15 14:12:56,248 112.802782807
+2013-11-15 14:50:55,603 Pre-training layer 0, epoch 3, cost 
+2013-11-15 14:50:55,604 111.746845782
+2013-11-15 15:28:48,969 Pre-training layer 0, epoch 4, cost 
+2013-11-15 15:28:48,970 110.590886062
+2013-11-15 16:06:47,591 Pre-training layer 0, epoch 5, cost 
+2013-11-15 16:06:47,592 109.472743128
+2013-11-15 16:44:44,317 Pre-training layer 0, epoch 6, cost 
+2013-11-15 16:44:44,318 108.578322585
+2013-11-15 17:22:39,555 Pre-training layer 0, epoch 7, cost 
+2013-11-15 17:22:39,556 107.735615294
+2013-11-15 18:00:39,315 Pre-training layer 0, epoch 8, cost 
+2013-11-15 18:00:39,316 106.888534882
+2013-11-15 18:38:34,865 Pre-training layer 0, epoch 9, cost 
+2013-11-15 18:38:34,866 106.067065631
+2013-11-15 18:52:02,506 Pre-training layer 1, epoch 0, cost 
+2013-11-15 18:52:02,508 8381.24428232
+2013-11-15 19:05:29,530 Pre-training layer 1, epoch 1, cost 
+2013-11-15 19:05:29,531 8354.86701343
+2013-11-15 19:18:57,354 Pre-training layer 1, epoch 2, cost 
+2013-11-15 19:18:57,355 8349.50670204
+2013-11-15 19:32:24,102 Pre-training layer 1, epoch 3, cost 
+2013-11-15 19:32:24,103 8344.92393837
+2013-11-15 19:45:51,568 Pre-training layer 1, epoch 4, cost 
+2013-11-15 19:45:51,569 8341.17372764
+2013-11-15 19:59:21,136 Pre-training layer 1, epoch 5, cost 
+2013-11-15 19:59:21,137 8338.01184685
+2013-11-15 20:12:50,427 Pre-training layer 1, epoch 6, cost 
+2013-11-15 20:12:50,428 8335.25398115
+2013-11-15 20:26:17,814 Pre-training layer 1, epoch 7, cost 
+2013-11-15 20:26:17,815 8332.97859171
+2013-11-15 20:39:47,354 Pre-training layer 1, epoch 8, cost 
+2013-11-15 20:39:47,355 8331.00911499
+2013-11-15 20:53:14,134 Pre-training layer 1, epoch 9, cost 
+2013-11-15 20:53:14,135 8329.25441865
+2013-11-15 21:06:42,764 Pre-training layer 1, epoch 10, cost 
+2013-11-15 21:06:42,766 8327.79430029
+2013-11-15 21:20:10,321 Pre-training layer 1, epoch 11, cost 
+2013-11-15 21:20:10,322 8326.54530677
+2013-11-15 21:33:38,831 Pre-training layer 1, epoch 12, cost 
+2013-11-15 21:33:38,832 8325.44943541
+2013-11-15 21:47:07,758 Pre-training layer 1, epoch 13, cost 
+2013-11-15 21:47:07,759 8324.46724018
+2013-11-15 22:00:36,907 Pre-training layer 1, epoch 14, cost 
+2013-11-15 22:00:36,908 8323.56672804
+2013-11-15 22:14:05,362 Pre-training layer 1, epoch 15, cost 
+2013-11-15 22:14:05,363 8322.7997112
+2013-11-15 22:27:33,350 Pre-training layer 1, epoch 16, cost 
+2013-11-15 22:27:33,352 8322.15723799
+2013-11-15 22:41:02,043 Pre-training layer 1, epoch 17, cost 
+2013-11-15 22:41:02,044 8321.5121782
+2013-11-15 22:54:29,860 Pre-training layer 1, epoch 18, cost 
+2013-11-15 22:54:29,861 8320.99689087
+2013-11-15 23:07:58,821 Pre-training layer 1, epoch 19, cost 
+2013-11-15 23:07:58,822 8320.50806459
+2013-11-15 23:21:27,340 Pre-training layer 1, epoch 20, cost 
+2013-11-15 23:21:27,341 8320.05692963
+2013-11-15 23:34:55,879 Pre-training layer 1, epoch 21, cost 
+2013-11-15 23:34:55,880 8319.66992641
+2013-11-15 23:48:23,992 Pre-training layer 1, epoch 22, cost 
+2013-11-15 23:48:23,993 8319.32136697
+2013-11-16 00:01:52,817 Pre-training layer 1, epoch 23, cost 
+2013-11-16 00:01:52,818 8319.03611488
+2013-11-16 00:15:22,350 Pre-training layer 1, epoch 24, cost 
+2013-11-16 00:15:22,351 8318.69095963
+2013-11-16 00:28:51,638 Pre-training layer 1, epoch 25, cost 
+2013-11-16 00:28:51,639 8318.43441416
+2013-11-16 00:42:19,838 Pre-training layer 1, epoch 26, cost 
+2013-11-16 00:42:19,839 8318.18577978
+2013-11-16 00:55:47,672 Pre-training layer 1, epoch 27, cost 
+2013-11-16 00:55:47,673 8317.9557818
+2013-11-16 01:09:15,282 Pre-training layer 1, epoch 28, cost 
+2013-11-16 01:09:15,283 8317.72714164
+2013-11-16 01:22:43,476 Pre-training layer 1, epoch 29, cost 
+2013-11-16 01:22:43,477 8317.50984108
+2013-11-16 01:36:12,737 Pre-training layer 1, epoch 30, cost 
+2013-11-16 01:36:12,738 8317.34702629
+2013-11-16 01:49:41,541 Pre-training layer 1, epoch 31, cost 
+2013-11-16 01:49:41,542 8317.17624413
+2013-11-16 12:59:19,650 Starting Sda
+2013-11-16 12:59:32,228 ... building the model
+2013-11-16 12:59:39,754 ... getting the pretraining functions
+2013-11-16 12:59:43,661 ... pre-training the model
+2013-11-16 13:37:42,901 Pre-training layer 0, epoch 0, cost 
+2013-11-16 13:37:42,902 180.801553982
+2013-11-16 14:15:41,093 Pre-training layer 0, epoch 1, cost 
+2013-11-16 14:15:41,094 114.818504943
+2013-11-16 14:53:41,825 Pre-training layer 0, epoch 2, cost 
+2013-11-16 14:53:41,826 112.802782807
+2013-11-16 15:31:41,294 Pre-training layer 0, epoch 3, cost 
+2013-11-16 15:31:41,296 111.746845782
+2013-11-16 16:09:37,087 Pre-training layer 0, epoch 4, cost 
+2013-11-16 16:09:37,088 110.590886062
+2013-11-16 16:47:29,230 Pre-training layer 0, epoch 5, cost 
+2013-11-16 16:47:29,231 109.472743128
+2013-11-16 17:25:26,205 Pre-training layer 0, epoch 6, cost 
+2013-11-16 17:25:26,206 108.578322585
+2013-11-16 18:03:27,508 Pre-training layer 0, epoch 7, cost 
+2013-11-16 18:03:27,509 107.735615294
+2013-11-16 18:41:25,823 Pre-training layer 0, epoch 8, cost 
+2013-11-16 18:41:25,824 106.888534882
+2013-11-16 19:19:25,012 Pre-training layer 0, epoch 9, cost 
+2013-11-16 19:19:25,013 106.067065631
+2013-11-16 19:32:54,232 Pre-training layer 1, epoch 0, cost 
+2013-11-16 19:32:54,233 8381.24428232
+2013-11-16 19:46:22,964 Pre-training layer 1, epoch 1, cost 
+2013-11-16 19:46:22,965 8354.86701343
+2013-11-16 19:59:52,765 Pre-training layer 1, epoch 2, cost 
+2013-11-16 19:59:52,766 8349.50670204
+2013-11-16 20:13:21,883 Pre-training layer 1, epoch 3, cost 
+2013-11-16 20:13:21,884 8344.92393837
+2013-11-16 20:26:51,501 Pre-training layer 1, epoch 4, cost 
+2013-11-16 20:26:51,502 8341.17372764
+2013-11-16 20:40:20,081 Pre-training layer 1, epoch 5, cost 
+2013-11-16 20:40:20,082 8338.01184685
+2013-11-16 20:53:49,457 Pre-training layer 1, epoch 6, cost 
+2013-11-16 20:53:49,458 8335.25398115
+2013-11-16 21:07:18,293 Pre-training layer 1, epoch 7, cost 
+2013-11-16 21:07:18,294 8332.97859171
+2013-11-16 21:20:47,596 Pre-training layer 1, epoch 8, cost 
+2013-11-16 21:20:47,598 8331.00911499
+2013-11-16 21:34:16,611 Pre-training layer 1, epoch 9, cost 
+2013-11-16 21:34:16,612 8329.25441865
+2013-11-16 21:47:44,739 Pre-training layer 1, epoch 10, cost 
+2013-11-16 21:47:44,740 8327.79430029
+2013-11-16 22:01:12,526 Pre-training layer 1, epoch 11, cost 
+2013-11-16 22:01:12,527 8326.54530677
+2013-11-16 22:14:42,470 Pre-training layer 1, epoch 12, cost 
+2013-11-16 22:14:42,471 8325.44943541
+2013-11-16 22:28:10,838 Pre-training layer 1, epoch 13, cost 
+2013-11-16 22:28:10,839 8324.46724018
+2013-11-16 22:41:40,771 Pre-training layer 1, epoch 14, cost 
+2013-11-16 22:41:40,772 8323.56672804
+2013-11-16 22:55:11,832 Pre-training layer 1, epoch 15, cost 
+2013-11-16 22:55:11,833 8322.7997112
+2013-11-16 23:08:39,773 Pre-training layer 1, epoch 16, cost 
+2013-11-16 23:08:39,774 8322.15723799
+2013-11-16 23:22:06,015 Pre-training layer 1, epoch 17, cost 
+2013-11-16 23:22:06,016 8321.5121782
+2013-11-16 23:35:34,515 Pre-training layer 1, epoch 18, cost 
+2013-11-16 23:35:34,516 8320.99689087
+2013-11-16 23:49:02,661 Pre-training layer 1, epoch 19, cost 
+2013-11-16 23:49:02,662 8320.50806459
+2013-11-17 00:02:30,545 Pre-training layer 1, epoch 20, cost 
+2013-11-17 00:02:30,546 8320.05692963
+2013-11-17 00:15:58,219 Pre-training layer 1, epoch 21, cost 
+2013-11-17 00:15:58,221 8319.66992641
+2013-11-17 00:29:26,889 Pre-training layer 1, epoch 22, cost 
+2013-11-17 00:29:26,890 8319.32136697
+2013-11-17 00:42:54,740 Pre-training layer 1, epoch 23, cost 
+2013-11-17 00:42:54,741 8319.03611488
+2013-11-17 00:56:24,059 Pre-training layer 1, epoch 24, cost 
+2013-11-17 00:56:24,060 8318.69095963
+2013-11-17 01:09:55,495 Pre-training layer 1, epoch 25, cost 
+2013-11-17 01:09:55,496 8318.43441416
+2013-11-17 01:23:24,524 Pre-training layer 1, epoch 26, cost 
+2013-11-17 01:23:24,525 8318.18577978
+2013-11-17 01:36:52,783 Pre-training layer 1, epoch 27, cost 
+2013-11-17 01:36:52,784 8317.9557818
+2013-11-17 01:50:20,685 Pre-training layer 1, epoch 28, cost 
+2013-11-17 01:50:20,686 8317.72714164
+2013-11-17 02:03:49,216 Pre-training layer 1, epoch 29, cost 
+2013-11-17 02:03:49,217 8317.50984108
+2013-11-17 02:03:49,217 The pretraining code for file Sda.py ran for 2798.34m
+2013-11-17 02:03:49,217 ... getting the finetuning functions
+2013-11-17 02:03:51,503 ... finetunning the model
+2013-11-17 02:24:59,771 epoch 1, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 02:30:23,993      epoch 1, minibatch 1019/1019, test error of best model 96.684350 %
+2013-11-17 02:51:29,567 epoch 2, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 03:12:34,504 epoch 3, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 03:33:37,776 epoch 4, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 03:54:44,166 epoch 5, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 04:15:50,373 epoch 6, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 04:36:56,070 epoch 7, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 04:58:01,124 epoch 8, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 05:19:06,417 epoch 9, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 05:40:11,166 epoch 10, minibatch 1019/1019, validation error 96.491228 %
+2013-11-17 05:40:12,370 Optimization complete with best validation score of 96.491228 %,with test performance 96.684350 %
+2013-11-17 05:40:12,370 The training code for file Sda.py ran for 781.65m
+2013-11-17 05:40:12,372 Successfully run Sda

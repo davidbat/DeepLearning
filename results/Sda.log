@@ -1,0 +1,10 @@
+2013-11-08 02:04:07,132 Starting Sda
+2013-11-08 02:04:39,874 ... building the model
+2013-11-08 02:05:15,750 ... getting the pretraining functions
+2013-11-08 02:05:21,881 ... pre-training the model
+2013-11-08 14:15:50,269 Starting Sda
+2013-11-08 14:16:22,746 ... building the model
+2013-11-08 14:16:58,864 ... getting the pretraining functions
+2013-11-08 14:17:03,272 ... pre-training the model
+2013-11-08 17:09:19,230 Pre-training layer 0, epoch 0, cost 
+2013-11-08 17:09:19,231 360.951497919

@@ -46,7 +46,7 @@ from mlp import HiddenLayer
 from dA import dA
 import logging
 
-logging.basicConfig(filename='../results/Sda.log', level=logging.DEBUG, format = '%(asctime)-15s %(message)s')
+logging.basicConfig(filename='../results/Sda_half.log', level=logging.DEBUG, format = '%(asctime)-15s %(message)s')
 
 class SdA(object):
     """Stacked denoising auto-encoder class (SdA)
@@ -60,7 +60,7 @@ class SdA(object):
     """
 
     def __init__(self, numpy_rng, theano_rng=None, n_ins=26214,
-                 hidden_layers_sizes=[12000, 5000], n_outs=20,
+                 hidden_layers_sizes=[17000, 17000], n_outs=20,
                  corruption_levels=[0.1, 0.1]):
         """ This class is made to support a variable number of layers.
 
@@ -295,9 +295,9 @@ class SdA(object):
         return train_fn, valid_score, test_score
 
 
-def test_SdA(finetune_lr=0.1, pretraining_epochs=05,
-             pretrain_lr=0.001, training_epochs=15,
-             dataset='../data/Full.pkl.gz', batch_size=1):
+def test_SdA(finetune_lr=0.1, pretraining_epochs=15,
+             pretrain_lr=0.001, training_epochs=50,
+             dataset='../data/Full_mat.pkl.gz', batch_size=1):
     """
     Demonstrates how to train and test a stochastic denoising autoencoder.
 
@@ -336,7 +336,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=05,
     logging.info('... building the model')
     # construct the stacked denoising autoencoder class
     sda = SdA(numpy_rng=numpy_rng, n_ins=26214,
-              hidden_layers_sizes=[12000, 5000],
+              hidden_layers_sizes=[17000, 17000],
               n_outs=20)
 
     #########################
@@ -408,7 +408,7 @@ def test_SdA(finetune_lr=0.1, pretraining_epochs=05,
             try:
               minibatch_avg_cost = train_fn(minibatch_index)
             except Exception as f:
-              import pdb; pdb.set_trace()
+              logger.exception(f)
             iter = (epoch - 1) * n_train_batches + minibatch_index
 
             if (iter + 1) % validation_frequency == 0:

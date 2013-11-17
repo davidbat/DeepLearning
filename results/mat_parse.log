@@ -1,0 +1,42 @@
+2013-11-14 18:38:24,514: Load form the matlab dataset.
+2013-11-14 18:38:25,608: Getting min max list
+2013-11-14 18:38:41,393: Load form the matlab dataset.
+2013-11-14 18:38:42,479: Getting min max list
+2013-11-14 18:40:22,404: Applying Z normalization
+2013-11-14 18:47:15,148: Getting the indices for each dataset.
+2013-11-14 18:47:15,165: Reducing the datasets.
+2013-11-14 18:47:15,168: Getting the labels.
+2013-11-14 19:03:32,624: Load form the matlab dataset.
+2013-11-14 19:03:33,721: Getting min max list
+2013-11-14 19:05:15,646: Applying Z normalization
+2013-11-14 19:12:14,369: Getting the indices for each dataset.
+2013-11-14 19:12:14,387: Reducing the datasets.
+2013-11-14 19:12:14,389: Getting the labels.
+2013-11-14 19:12:14,468: Getting the data.
+2013-11-14 19:12:14,468: invalid index to scalar variable.
+Traceback (most recent call last):
+  File "mat_parse.py", line 94, in <module>
+    main()
+  File "mat_parse.py", line 77, in main
+    train = map(lambda i: data[i[0]-1], train_idx)
+  File "mat_parse.py", line 77, in <lambda>
+    train = map(lambda i: data[i[0]-1], train_idx)
+IndexError: invalid index to scalar variable.
+2013-11-14 19:15:27,902: Load form the matlab dataset.
+2013-11-14 19:15:28,996: Getting min max list
+2013-11-14 19:17:14,411: Applying Z normalization
+2013-11-14 19:24:11,278: Getting the indices for each dataset.
+2013-11-14 19:24:11,301: Reducing the datasets.
+2013-11-14 19:24:11,303: Getting the labels.
+2013-11-14 19:24:11,311: Getting the data.
+2013-11-14 19:24:11,318: Pickling the data.
+2013-11-15 12:05:21,699: Load form the matlab dataset.
+2013-11-15 12:05:22,780: Getting min max list
+2013-11-15 12:06:03,041: Load form the matlab dataset.
+2013-11-15 12:06:04,130: Getting min max list
+2013-11-15 12:07:55,234: Applying Z normalization
+2013-11-15 12:15:13,598: Getting the indices for each dataset.
+2013-11-15 12:15:13,621: Reducing the datasets.
+2013-11-15 12:15:13,623: Getting the labels.
+2013-11-15 12:15:13,641: Getting the data.
+2013-11-15 12:15:13,648: Pickling the data.

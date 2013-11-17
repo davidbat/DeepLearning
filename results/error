@@ -1,0 +1,18 @@
+The pretraining code for file Sda.py ran for 288.51m
+log_thunk_trace: There was a problem executing an Op.
+Traceback (most recent call last):
+  File "Sda.py", line 447, in <module>
+    test_SdA()
+  File "Sda.py", line 403, in test_SdA
+    minibatch_avg_cost = train_fn(minibatch_index)
+  File "/usr/lib/python2.7/site-packages/theano/compile/function_module.py", line 636, in __call__
+    outputs = self.fn()
+  File "/usr/lib/python2.7/site-packages/theano/gof/link.py", line 344, in streamline_default_f
+    raise_with_op(node)
+  File "/usr/lib/python2.7/site-packages/theano/gof/link.py", line 340, in streamline_default_f
+    thunk()
+  File "/usr/lib/python2.7/site-packages/theano/gof/op.py", line 580, in rval
+    fill_storage()
+  File "/usr/lib/python2.7/site-packages/theano/gof/cc.py", line 1209, in __call__
+    raise exc_type, exc_value, exc_trace
+ValueError: ('y_i value out of bounds', CrossentropySoftmaxArgmax1HotWithBias(<TensorType(float64, matrix)>, b, <TensorType(int32, vector)>), [CrossentropySoftmaxArgmax1HotWithBias.0, CrossentropySoftmaxArgmax1HotWithBias.1, CrossentropySoftmaxArgmax1HotWithBias.2])
